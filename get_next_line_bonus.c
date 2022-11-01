@@ -6,7 +6,7 @@
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/01 00:19:23 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/11/01 12:24:40 by yokitaga         ###   ########.fr       */
+/*   Updated: 2022/11/01 12:50:37 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ char	*get_next_line(int fd)
 	char		*output_line;
 
 	if (fd < 0 || MAX_FD < fd || BUFFER_SIZE <= 0)
-		return (0);
+		return (NULL);
 	if (save[fd] == NULL)
 	{
 		save[fd] = (char *)malloc(sizeof(char) * 1);
