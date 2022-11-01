@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 22:23:54 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/11/01 12:25:41 by yokitaga         ###   ########.fr       */
+/*   Created: 2022/11/01 00:19:23 by yokitaga          #+#    #+#             */
+/*   Updated: 2022/11/01 12:24:40 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 char	*ft_read_get_save(int fd, char *save)
 {
@@ -95,20 +95,20 @@ char	*ft_get_next_save(char *save)
 
 char	*get_next_line(int fd)
 {
-	static char	*save;
+	static char	*save[MAX_FD];
 	char		*output_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || MAX_FD < fd || BUFFER_SIZE <= 0)
 		return (0);
-	if (save == NULL)
+	if (save[fd] == NULL)
 	{
-		save = (char *)malloc(sizeof(char) * 1);
-		*save = '\0';
+		save[fd] = (char *)malloc(sizeof(char) * 1);
+		*save[fd] = '\0';
 	}
-	save = ft_read_get_save(fd, save);
-	if (save == NULL)
+	save[fd] = ft_read_get_save(fd, save[fd]);
+	if (save[fd] == NULL)
 		return (NULL);
-	output_line = ft_get_outputline(save);
-	save = ft_get_next_save(save);
+	output_line = ft_get_outputline(save[fd]);
+	save[fd] = ft_get_next_save(save[fd]);
 	return (output_line);
 }
