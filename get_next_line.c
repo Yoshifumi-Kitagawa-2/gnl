@@ -6,7 +6,7 @@
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/25 22:23:54 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/11/01 13:12:47 by yokitaga         ###   ########.fr       */
+/*   Updated: 2022/11/01 13:17:44 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char	*ft_get_next_save(char *save)
 	next_save = (char *)malloc(sizeof(char) * (save_len - i + 1));
 	if (next_save == NULL)
 		return (NULL);
-	i++;
+	i++;//改行の次からコピーしたいため
 	j = 0;
 	while (save[i] != '\0')
 		next_save[j++] = save[i++];
