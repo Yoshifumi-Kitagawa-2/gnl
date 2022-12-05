@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/10/25 22:23:57 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/11/01 10:36:18 by yokitaga         ###   ########.fr       */
+/*   Created: 2022/12/05 15:00:52 by yokitaga          #+#    #+#             */
+/*   Updated: 2022/12/05 15:43:04 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,10 @@
 
 # include <unistd.h> 
 # include <stdlib.h>
+
+#ifndef BUFFER_SIZE
+# define BUFFER_SIZE 42
+#endif
 
 char	*ft_strchr(const char *s, int c);
 size_t	ft_strlen(const char *str);
