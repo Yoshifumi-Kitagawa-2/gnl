@@ -6,7 +6,7 @@
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/05 15:00:11 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/12/05 15:01:02 by yokitaga         ###   ########.fr       */
+/*   Updated: 2022/12/11 11:25:40 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ char	*get_next_line(int fd)
 	if (save[fd] == NULL)
 	{
 		save[fd] = (char *)malloc(sizeof(char) * 1);
+		if (save[fd] == NULL)
+			return (NULL);
 		*save[fd] = '\0';
 	}
 	save[fd] = ft_read_get_save(fd, save[fd]);
