@@ -6,7 +6,7 @@
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/12 11:54:59 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/12/12 11:55:00 by yokitaga         ###   ########.fr       */
+/*   Updated: 2022/12/13 13:45:19 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ char	*ft_read_get_save(int fd, char *save)
 		}
 		read_result[read_size] = '\0';
 		save = ft_strjoin(save, read_result);//読み込み結果とsaveをjoinしていく
+		if (save == NULL)
+			return(NULL);
 	}
 	free(read_result);//while文抜けるとread_result必要無くなるのでfree
 	return (save);//saveには全部読み終わったものが入っているか改行含んだものが入っているか
@@ -110,7 +112,7 @@ char	*get_next_line(int fd)
 	save = ft_read_get_save(fd, save);
 	if (save == NULL)
 		return (NULL);
-	output_line = ft_get_outputline(save);//saveには全部読み終わったものが入っているか改行含んだものが入っているいる→そこからouputline取り出す
+	output_line = ft_get_outputline(save);//saveには全部読み終わったものが入っているか、改行含んだものが入っているいる→そこからouputline取り出す
 	save = ft_get_next_save(save);
 	return (output_line);
 }
