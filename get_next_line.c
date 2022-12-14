@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/12 11:54:59 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/12/14 16:28:09 by yokitaga         ###   ########.fr       */
+/*   Created: 2022/12/14 16:52:20 by yokitaga          #+#    #+#             */
+/*   Updated: 2022/12/14 16:52:22 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,22 +21,22 @@ char	*ft_read_get_save(int fd, char *save)
 	if (read_result == NULL)
 		return (NULL);
 	read_size = 1;
-	while (read_size != 0 && ft_strchr(save, '\n') == NULL)//読み終わるか改行見つけるまでwhile回す
+	while (read_size != 0 && ft_strchr(save, '\n') == NULL)
 	{
 		read_size = read(fd, read_result, BUFFER_SIZE);
-		if (read_size == -1)//読み込み失敗した場合は読み込み結果とそれまでのsaveをfreeする必要(初回のsaveもmallocで1確保してヌル終端入れているのでfreeしないといけない)
+		if (read_size == -1)
 		{
 			free(read_result);
 			free(save);
 			return (NULL);
 		}
 		read_result[read_size] = '\0';
-		save = ft_strjoin(save, read_result);//読み込み結果とsaveをjoinしていく
+		save = ft_strjoin(save, read_result);
 		if (save == NULL)
 			return (NULL);
 	}
-	free(read_result);//while文抜けるとread_result必要無くなるのでfree
-	return (save);//saveには全部読み終わったものが入っているか改行含んだものが入っているか
+	free(read_result);
+	return (save);
 }
 
 char	*ft_get_outputline(char *save)
@@ -49,7 +49,7 @@ char	*ft_get_outputline(char *save)
 		return (NULL);
 	while (save[i] != '\0' && save[i] != '\n')
 		i++;
-	output_line = (char *)malloc(sizeof(char) * (i + 2));//改行ある時は改行+終端なので確保
+	output_line = (char *)malloc(sizeof(char) * (i + 2));
 	if (output_line == NULL)
 		return (NULL);
 	i = 0;
@@ -77,7 +77,7 @@ char	*ft_get_next_save(char *save)
 	i = 0;
 	while (save[i] != '\0' && save[i] != '\n')
 		i++;
-	if (save[i] == '\0')//next_saveはもうないため、freeして終了。outputlineに既に入っているのでsavewをfreeして良い。
+	if (save[i] == '\0')
 	{
 		free(save);
 		return (NULL);
@@ -86,7 +86,7 @@ char	*ft_get_next_save(char *save)
 	next_save = (char *)malloc(sizeof(char) * (save_len - i + 1));
 	if (next_save == NULL)
 		return (NULL);
-	i++;//改行の次からコピーしたいため
+	i++;
 	j = 0;
 	while (save[i] != '\0')
 		next_save[j++] = save[i++];
@@ -102,7 +102,7 @@ char	*get_next_line(int fd)
 
 	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
-	if (save == NULL)//初期
+	if (save == NULL)
 	{
 		save = (char *)malloc(sizeof(char) * 1);
 		if (save == NULL)
@@ -112,7 +112,7 @@ char	*get_next_line(int fd)
 	save = ft_read_get_save(fd, save);
 	if (save == NULL)
 		return (NULL);
-	output_line = ft_get_outputline(save);//saveには全部読み終わったものが入っているか、改行含んだものが入っているいる→そこからouputline取り出す
+	output_line = ft_get_outputline(save);
 	save = ft_get_next_save(save);
 	return (output_line);
 }
