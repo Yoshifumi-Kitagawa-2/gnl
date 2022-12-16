@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:52:20 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/12/14 16:52:22 by yokitaga         ###   ########.fr       */
+/*   Created: 2022/12/15 11:18:56 by yokitaga          #+#    #+#             */
+/*   Updated: 2022/12/16 12:28:29 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,9 +17,9 @@ char	*ft_read_get_save(int fd, char *save)
 	char	*read_result;
 	ssize_t	read_size;
 
-	read_result = (char *)malloc(sizeof(char) * (BUFFER_SIZE + 1));
+	read_result = (char *)malloc(sizeof(char) * ((size_t)BUFFER_SIZE + 1));
 	if (read_result == NULL)
-		return (NULL);
+		return (ft_free(save));
 	read_size = 1;
 	while (read_size != 0 && ft_strchr(save, '\n') == NULL)
 	{
@@ -27,13 +27,12 @@ char	*ft_read_get_save(int fd, char *save)
 		if (read_size == -1)
 		{
 			free(read_result);
-			free(save);
-			return (NULL);
+			return (ft_free(save));
 		}
 		read_result[read_size] = '\0';
 		save = ft_strjoin(save, read_result);
 		if (save == NULL)
-			return (NULL);
+			break;
 	}
 	free(read_result);
 	return (save);
@@ -51,7 +50,7 @@ char	*ft_get_outputline(char *save)
 		i++;
 	output_line = (char *)malloc(sizeof(char) * (i + 2));
 	if (output_line == NULL)
-		return (NULL);
+		return (ft_free(save));
 	i = 0;
 	while (save[i] != '\0' && save[i] != '\n')
 	{
@@ -78,14 +77,11 @@ char	*ft_get_next_save(char *save)
 	while (save[i] != '\0' && save[i] != '\n')
 		i++;
 	if (save[i] == '\0')
-	{
-		free(save);
-		return (NULL);
-	}
+		return (ft_free(save));
 	save_len = ft_strlen(save);
 	next_save = (char *)malloc(sizeof(char) * (save_len - i + 1));
 	if (next_save == NULL)
-		return (NULL);
+		return (ft_free(save));
 	i++;
 	j = 0;
 	while (save[i] != '\0')
@@ -100,7 +96,7 @@ char	*get_next_line(int fd)
 	static char	*save;
 	char		*output_line;
 
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0 || INT_MAX < BUFFER_SIZE)
 		return (NULL);
 	if (save == NULL)
 	{

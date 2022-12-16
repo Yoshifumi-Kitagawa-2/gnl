@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: yokitaga <yokitaga@student.42tokyo.jp>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/12/14 16:52:04 by yokitaga          #+#    #+#             */
-/*   Updated: 2022/12/14 16:52:07 by yokitaga         ###   ########.fr       */
+/*   Created: 2022/12/15 11:18:40 by yokitaga          #+#    #+#             */
+/*   Updated: 2022/12/15 21:51:59 by yokitaga         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ char	*ft_strjoin(char *s1, char *s2)
 		return (NULL);
 	p = (char *)malloc(sizeof(char) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (p == NULL)
-		return (NULL);
+		return(ft_free(s1));
 	i = 0;
 	j = 0;
 	while (s1[i] != '\0')
@@ -58,4 +58,10 @@ char	*ft_strjoin(char *s1, char *s2)
 	p[ft_strlen(s1) + ft_strlen(s2)] = '\0';
 	free(s1);
 	return (p);
+}
+
+char *ft_free(char *str)
+{
+	free(str);
+	return(NULL);
 }
